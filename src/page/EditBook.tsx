@@ -13,20 +13,17 @@ export default function EditBook() {
     register,
     // setValue,
     handleSubmit,
-    reset,
     setValue,
     // formState: { errors },
   } = useForm<Partial<FormDataType>>();
 
-  const {
-    data: bookData,
-    isLoading,
-    error,
-  } = useGetSingleBookQuery(editBookId as string);
+  const { data: bookData, isLoading } = useGetSingleBookQuery(
+    editBookId as string
+  );
   //   console.log(data);
-  const { message, statusCode, data } = bookData
+  const { statusCode, data } = bookData
     ? bookData
-    : { message: "", statusCode: "", data: {} };
+    : { statusCode: "", data: {} };
 
   useEffect(() => {
     if (statusCode === 200) {

@@ -25,13 +25,8 @@ export default function Login() {
     try {
       const result = await logIn(data);
       if (result) {
-        const data = result.data;
-
-        localStorage.setItem(
-          "accessToken",
-          JSON.stringify(data.data.accessToken)
-        );
-
+        localStorage.setItem("responseData", JSON.stringify(result));
+        // localStorage.setItem("accessToken", JSON.stringify());
         reset();
 
         navigate("/");

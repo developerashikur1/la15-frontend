@@ -13,7 +13,7 @@ export default function BookDetails() {
   const navigate = useNavigate();
   const [review, setReview] = useState("");
 
-  const { data, isLoading, error } = useGetSingleBookQuery(bookId as string);
+  const { data, isLoading } = useGetSingleBookQuery(bookId as string);
   const [deleteBook, result] = useDeleteBookMutation(undefined);
 
   const book = data?.data;

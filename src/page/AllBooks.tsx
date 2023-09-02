@@ -1,10 +1,9 @@
-import React from "react";
 import BookCard from "../components/BookCard";
 import SearchAndFilter from "../components/ui/SearchAndFilter";
 
 const booksData = [
   {
-    _id: 1,
+    _id: "1",
     title: "Battles of Napoleon",
     author: "James",
     image:
@@ -17,7 +16,7 @@ const booksData = [
     publicationDate: "10/09/1997",
   },
   {
-    _id: 1,
+    _id: "1",
     title: "Battles of Napoleon",
     author: "James",
     image:
@@ -30,7 +29,7 @@ const booksData = [
     publicationDate: "10/09/1997",
   },
   {
-    _id: 1,
+    _id: "1",
     title: "Battles of Napoleon",
     author: "James",
     image:
@@ -43,7 +42,7 @@ const booksData = [
     publicationDate: "10/09/1997",
   },
   {
-    _id: 1,
+    _id: "1",
     title: "Battles of Napoleon",
     author: "James",
     image:
@@ -56,7 +55,7 @@ const booksData = [
     publicationDate: "10/09/1997",
   },
   {
-    _id: 1,
+    _id: "1",
     title: "Battles of Napoleon",
     author: "James",
     image:
@@ -69,7 +68,7 @@ const booksData = [
     publicationDate: "10/09/1997",
   },
   {
-    _id: 1,
+    _id: "1",
     title: "Battles of Napoleon",
     author: "James",
     image:
@@ -82,7 +81,7 @@ const booksData = [
     publicationDate: "10/09/1997",
   },
   {
-    _id: 1,
+    _id: "1",
     title: "Battles of Napoleon",
     author: "James",
     image:
@@ -95,7 +94,7 @@ const booksData = [
     publicationDate: "10/09/1997",
   },
   {
-    _id: 1,
+    _id: "1",
     title: "Battles of Napoleon",
     author: "James",
     image:
@@ -108,7 +107,7 @@ const booksData = [
     publicationDate: "10/09/1997",
   },
   {
-    _id: 1,
+    _id: "1",
     title: "Battles of Napoleon",
     author: "James",
     image:
@@ -121,7 +120,7 @@ const booksData = [
     publicationDate: "10/09/1997",
   },
   {
-    _id: 1,
+    _id: "1",
     title: "Battles of Napoleon",
     author: "James",
     image:
@@ -134,7 +133,7 @@ const booksData = [
     publicationDate: "10/09/1997",
   },
   {
-    _id: 1,
+    _id: "1",
     title: "Battles of Napoleon",
     author: "James",
     image:
@@ -147,7 +146,7 @@ const booksData = [
     publicationDate: "10/09/1997",
   },
   {
-    _id: 1,
+    _id: "1",
     title: "Battles of Napoleon",
     author: "James",
     image:
@@ -160,7 +159,7 @@ const booksData = [
     publicationDate: "10/09/1997",
   },
   {
-    _id: 1,
+    _id: "1",
     title: "Battles of Napoleon",
     author: "James",
     image:
@@ -173,7 +172,7 @@ const booksData = [
     publicationDate: "10/09/1997",
   },
   {
-    _id: 1,
+    _id: "1",
     title: "Battles of Napoleon",
     author: "James",
     image:
@@ -186,7 +185,7 @@ const booksData = [
     publicationDate: "10/09/1997",
   },
   {
-    _id: 1,
+    _id: "1",
     title: "Battles of Napoleon",
     author: "James",
     image:
@@ -199,7 +198,7 @@ const booksData = [
     publicationDate: "10/09/1997",
   },
   {
-    _id: 1,
+    _id: "1",
     title: "Battles of Napoleon",
     author: "James",
     image:
@@ -214,7 +213,6 @@ const booksData = [
 ];
 
 export default function AllBooks() {
-    
   return (
     <div className="py-16">
       <SearchAndFilter />

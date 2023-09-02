@@ -1,8 +1,11 @@
-import React from "react";
 import { Link } from "react-router-dom";
+import { IBook } from "../types/book-type";
 
-export default function BookCard({ book }) {
-    
+type BookCardProps = {
+  book: IBook;
+};
+
+const BookCard: React.FC<BookCardProps> = ({ book }): JSX.Element => {
   return (
     <>
       <div className="card card-side bg-base-100 drop-shadow-jg shadow shadow-blue-500/40 hover:shadow-indigo-500/40">
@@ -32,4 +35,6 @@ export default function BookCard({ book }) {
       </div>
     </>
   );
-}
+};
+
+export default BookCard;

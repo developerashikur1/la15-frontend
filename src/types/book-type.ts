@@ -4,11 +4,12 @@ export type IReview = {
 };
 
 export type IBook = {
+  _id?: string;
   title: string;
   author: string;
   genre: string;
   publicationDate: string;
-  createdBy: string;
+  createdBy?: string;
   ratings?: number | null;
   reviews?: IReview[];
   bookImage?: string;

@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable no-unsafe-optional-chaining */
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import Loading from "../components/ui/Loading";
@@ -22,8 +20,7 @@ export default function AddNewBook() {
     // formState: { errors },
   } = useForm<FormDataType>();
 
-  const [createBook, { isLoading, isError, isSuccess }] =
-    useCreateBookMutation();
+  const [createBook, { isLoading, isSuccess }] = useCreateBookMutation();
 
   console.log(isLoading, "loading");
 
