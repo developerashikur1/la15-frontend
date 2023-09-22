@@ -1,4 +1,7 @@
-export default function UserReviews() {
+import { ISingleReviews } from "../types/book-type";
+
+export default function UserReviews({ review }: { review: ISingleReviews }) {
+  console.log(review);
   return (
     <div className="">
       <div className="drop-shadow-2xl shadow-black border p-4 rounded-md">
@@ -15,7 +18,9 @@ export default function UserReviews() {
           </div>
           <div>
             <p className="flex items-baseline">
-              <span className="text-gray-600 font-bold">Mary T.</span>
+              <span className="text-gray-600 font-bold">
+                {review?.user?.name}
+              </span>
             </p>
             <div className="flex items-center mt-1">
               <svg
@@ -58,14 +63,7 @@ export default function UserReviews() {
         </div>
         <div className="mt-3">
           <div className="mt-3">
-            <p className="mt-1">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-              reprehenderit in voluptate velit esse cillum dolore eu fugiat
-              nulla pariatur.
-            </p>
+            <p className="mt-1">{review?.review}</p>
           </div>
         </div>
       </div>

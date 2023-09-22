@@ -4,7 +4,11 @@ import { useGetBooksQuery } from "../redux/features/Books/bookApi";
 import { IBook } from "../types/book-type";
 
 export default function Home() {
-  const { data } = useGetBooksQuery("");
+  const { data } = useGetBooksQuery({
+    searchTerm: "",
+    genre: "",
+    publicationYear: "",
+  });
 
   return (
     <>

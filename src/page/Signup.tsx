@@ -33,7 +33,6 @@ export default function Signup() {
     try {
       const result = await signUp(data);
       if (result) {
-        console.log(result);
         navigate("/login");
       }
     } catch (error) {

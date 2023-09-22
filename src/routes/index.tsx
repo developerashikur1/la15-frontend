@@ -1,5 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import App from "../App";
+import PrivateOutlet from "../auth/PrivateOutlet";
 import Loading from "../components/ui/Loading";
 import AddNewBook from "../page/AddNewBook";
 import AllBooks from "../page/AllBooks";
@@ -34,7 +35,11 @@ const routes = createBrowserRouter([
       },
       {
         path: "edit-book/:editBookId",
-        element: <EditBook />,
+        element: (
+          <PrivateOutlet>
+            <EditBook />
+          </PrivateOutlet>
+        ),
       },
       {
         path: "loading",

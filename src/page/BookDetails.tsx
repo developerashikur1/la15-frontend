@@ -1,12 +1,15 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import Loading from "../components/ui/Loading";
 import UserReviews from "../components/UserReviews";
 import {
+  useCommentOnBookMutation,
   useDeleteBookMutation,
   useGetSingleBookQuery,
 } from "../redux/features/Books/bookApi";
+import { ISingleReviews } from "../types/book-type";
 
 export default function BookDetails() {
   const { bookId } = useParams();
@@ -15,6 +18,7 @@ export default function BookDetails() {
 
   const { data, isLoading } = useGetSingleBookQuery(bookId as string);
   const [deleteBook, result] = useDeleteBookMutation(undefined);
+  const [commentOnBook] = useCommentOnBookMutation(undefined);
 
   const book = data?.data;
 
@@ -25,7 +29,7 @@ export default function BookDetails() {
   }, [result?.status]);
 
   const reviewSubmitHandler = () => {
-    console.log(review);
+    commentOnBook(bookId as string);
     setReview("");
   };
 
@@ -248,14 +252,12 @@ export default function BookDetails() {
       <hr />
       <br />
       <div className="container mx-auto p-6">
-        <p className="text-2xl mb-4">Reviews:</p>
+        <p className="text-2xl mb-4">Reviews: {book?.reviews?.length}</p>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <UserReviews />
-          <UserReviews />
-          <UserReviews />
-          <UserReviews />
-          <UserReviews />
+          {book?.reviews.map((review: ISingleReviews, index: number) => (
+            <UserReviews key={index} review={review} />
+          ))}
         </div>
       </div>
     </section>

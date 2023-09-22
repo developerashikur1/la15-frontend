@@ -36,3 +36,21 @@ export type CreateBookResponse = {
   message?: string;
   data?: ResponseData;
 };
+
+export type IResponseUser = {
+  name?: string;
+  email?: string;
+  password?: string;
+  phone?: string;
+  address?: string;
+  profession?: string;
+  profileImage?: string;
+  whiteList?: string[];
+  readingList?: string[];
+};
+
+export type ISingleReviews = {
+  id?: string;
+  review?: string;
+  user?: IResponseUser;
+};

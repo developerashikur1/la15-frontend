@@ -1,38 +1,65 @@
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import { useLogInMutation } from "../redux/features/auth/authApi";
+import { userAuthInfo } from "../redux/features/auth/authSlice";
+import { useAppDispatch, useAppSelector } from "../redux/hook";
+import { ILoginUserApiResponse } from "../types/user-types";
 
 export interface ILogin {
   email: string;
   password: string;
 }
 
+// Define types for the error message object
+interface ErrorMessage {
+  path: string;
+  message: string;
+}
+
+// Define the main response object type
+interface ApiResponse {
+  success: boolean;
+  message: string;
+  errorMessages?: ErrorMessage[];
+  stack?: string;
+}
+
 export default function Login() {
   const navigate = useNavigate();
-  const {
-    register,
-    // setValue,
-    handleSubmit,
-    reset,
-    // formState: { errors },
-  } = useForm<ILogin>();
-
-  //   console.log(register, handleSubmit);
+  const { register, handleSubmit, reset } = useForm<ILogin>();
+  const dispatch = useAppDispatch();
+  const auth = useAppSelector((state) => state.auth);
+  console.log(auth, "from auth default storage");
 
   const [logIn] = useLogInMutation();
 
   const loginHandler = handleSubmit(async (data) => {
     try {
       const result = await logIn(data);
-      if (result) {
-        localStorage.setItem("responseData", JSON.stringify(result));
-        // localStorage.setItem("accessToken", JSON.stringify());
-        reset();
 
-        navigate("/");
+      if ("data" in result) {
+        const { data, message, success } = result.data as ILoginUserApiResponse;
+        if (success) {
+          dispatch(
+            userAuthInfo({
+              isLoggedIn: success,
+              accessToken: data.accessToken,
+              userInfo: data.userInfo,
+            })
+          );
+          toast.success(message);
+          reset();
+          navigate("/");
+        }
+      } else {
+        if ("data" in result.error) {
+          const mess = result.error.data as ApiResponse;
+          toast.error(mess.message);
+        }
       }
-    } catch (error) {
-      //   console.log(error);
+    } catch (err) {
+      console.log(err, "from login");
     }
   });
 

@@ -17,18 +17,31 @@ const bookApi = api.injectEndpoints({
         method: "DELETE",
       }),
     }),
+    commentOnBook: build.mutation<unknown, string>({
+      query: (bookId: string) => ({
+        url: `/books/${bookId}`,
+        method: "PATCH",
+      }),
+    }),
     getBooks: build.query({
-      query: (payload: string) => `/books/${payload}`,
+      query: ({ searchTerm, genre, publicationYear }) =>
+        `/books?searchTerm=${searchTerm}&genre=${genre}&publicationYear=${publicationYear}`,
     }),
     getSingleBook: build.query({
       query: (id: string) => `/books/${id}`,
     }),
+    getBookFindOptions: build.query({
+      query: () => `/books/search-options`,
+    }),
   }),
 });
+// {{BOOK_CATALOG}}/books?searchTerm=j&publicationYear=1997&genre=Horror
 
 export const {
   useCreateBookMutation,
   useGetBooksQuery,
   useGetSingleBookQuery,
   useDeleteBookMutation,
+  useGetBookFindOptionsQuery,
+  useCommentOnBookMutation,
 } = bookApi;
