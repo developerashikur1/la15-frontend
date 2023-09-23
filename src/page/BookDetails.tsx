@@ -29,7 +29,11 @@ export default function BookDetails() {
   }, [result?.status]);
 
   const reviewSubmitHandler = () => {
-    commentOnBook(bookId as string);
+    const commentOptions = {
+      bookId: bookId as string,
+      data: { review },
+    };
+    commentOnBook(commentOptions);
     setReview("");
   };
 

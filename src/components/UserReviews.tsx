@@ -1,7 +1,7 @@
 import { ISingleReviews } from "../types/book-type";
 
 export default function UserReviews({ review }: { review: ISingleReviews }) {
-  console.log(review);
+//   console.log(review);
   return (
     <div className="">
       <div className="drop-shadow-2xl shadow-black border p-4 rounded-md">

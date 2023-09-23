@@ -3,6 +3,7 @@ import Footer from "./Footer";
 import Navbar from "./Navber";
 
 export default function MainLayout() {
+    
   return (
     <div>
       <Navbar />
