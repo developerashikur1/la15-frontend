@@ -1,5 +1,5 @@
 import { IBook } from "../../../types/book-type";
-import { FormDataType } from "../../../types/react-hook-form";
+import { EditBookDatatype, FormDataType } from "../../../types/react-hook-form";
 import { api } from "../../api/apiSlice";
 
 interface commentOption {
@@ -23,8 +23,17 @@ const bookApi = api.injectEndpoints({
         url: `/books/${bookId}`,
         method: "DELETE",
       }),
+      invalidatesTags: ['Book'],
     }),
     commentOnBook: build.mutation<unknown, commentOption>({
+      query: ({bookId, data}) => ({
+        url: `/books/${bookId}`,
+        method: "PUT",
+        body: data,
+      }),
+      invalidatesTags: ['Comment'],
+    }),
+    editBook: build.mutation<unknown, EditBookDatatype>({
       query: ({bookId, data}) => ({
         url: `/books/${bookId}`,
         method: "PATCH",
@@ -35,6 +44,7 @@ const bookApi = api.injectEndpoints({
     getBooks: build.query({
       query: ({ searchTerm, genre, publicationYear }) =>
         `/books?searchTerm=${searchTerm}&genre=${genre}&publicationYear=${publicationYear}`,
+        providesTags: ['Book'],
     }),
     getSingleBook: build.query({
       query: (id: string) => `/books/${id}`,
@@ -54,4 +64,5 @@ export const {
   useDeleteBookMutation,
   useGetBookFindOptionsQuery,
   useCommentOnBookMutation,
+  useEditBookMutation,
 } = bookApi;

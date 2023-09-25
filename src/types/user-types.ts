@@ -1,3 +1,5 @@
+import { IBook } from "./book-type";
+
 export interface IUserResponseInfo {
   _id: string;
   name: string;
@@ -6,8 +8,9 @@ export interface IUserResponseInfo {
   address: string;
   profession: string;
   profileImage: string;
-  whiteList: string[];
-  readingList: string[];
+  wishlist?: IBook[];
+  readingList?: IBook[];
+  finishedList?: IBook[];
   createdAt: string;
   updatedAt: string;
   __v: number;

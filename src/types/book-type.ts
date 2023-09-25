@@ -45,8 +45,9 @@ export type IResponseUser = {
   address?: string;
   profession?: string;
   profileImage?: string;
-  whiteList?: string[];
+  wishlist?: string[];
   readingList?: string[];
+  finishedList?: string[];
 };
 
 export type ISingleReviews = {

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import Loading from "../components/ui/Loading";
@@ -12,19 +13,11 @@ export default function AddNewBook() {
   const [selectedImage, setSelectedImage] = useState<
     string | ArrayBuffer | null
   >(null);
-  const {
-    register,
-    // setValue,
-    handleSubmit,
-    reset,
-    // formState: { errors },
-  } = useForm<FormDataType>();
 
-  const [createBook, { isLoading, isSuccess }] = useCreateBookMutation();
+  console.log("ashikur");
+  const { register, handleSubmit, reset } = useForm<FormDataType>();
 
-  console.log(isLoading, "loading");
-
-  console.log(isSuccess);
+  const [createBook, { isLoading }] = useCreateBookMutation();
 
   const [uploadImage] = useUploadImageMutation();
 
@@ -50,11 +43,7 @@ export default function AddNewBook() {
 
     try {
       const result = await uploadImage(formData);
-      //   if (imgbbResults.status === "fulfilled") {
-      //     const imgData = imgbbResults.data;
-      //     console.log(imgData);
-      //     //   data.bookImage = imgData?.image?.url;
-      //   }
+
       if ("data" in result) {
         console.log(result);
         const imgbbResponse = result.data.data as ImageInfo; // Cast the data to ImgbbResponse type
@@ -67,7 +56,6 @@ export default function AddNewBook() {
       console.log(error);
     }
 
-    console.log(data, "book data");
     try {
       const result = await createBook({
         ...data,
@@ -77,15 +65,12 @@ export default function AddNewBook() {
       if (result) {
         if ("data" in result) {
           const finalResults = result.data as CreateBookResponse;
-          // console.log(result);
-          // const messages = finalResults.message;
           SwalMessage("success", finalResults.message as string);
         }
         setSelectedImage(null);
       }
     } catch (error) {
       SwalMessage("error", "Book create failed!");
-      //   console.log(error);
     }
   });
 

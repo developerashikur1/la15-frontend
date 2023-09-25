@@ -2,20 +2,36 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useParams } from "react-router-dom";
 import Loading from "../components/ui/Loading";
-import { useGetSingleBookQuery } from "../redux/features/Books/bookApi";
-import { FormDataType } from "../types/react-hook-form";
+import SwalMessage from "../components/ui/SweetAlerts";
+import { useUploadImageMutation } from "../redux/api/uploadImageApi";
+import {
+  useEditBookMutation,
+  useGetSingleBookQuery,
+} from "../redux/features/Books/bookApi";
+import { CreateBookResponse } from "../types/book-type";
+import { ImageInfo } from "../types/imgbb-types";
+import { EditBookFormDataType } from "../types/react-hook-form";
+
+export type InitialFormValues = { [key: string]: string };
 
 export default function EditBook() {
   const { editBookId } = useParams();
   const [bookImg, setBookImg] = useState("");
+  //   const [initialValues, setInitialValues] = useState<initialFormValues>({});
+  const [initialValues, setInitialValues] = useState<InitialFormValues>({});
+
+  // const [modifiedValues, setModifiedValues] = useState({});
+  const [uploadImage] = useUploadImageMutation();
+  const [editBook] = useEditBookMutation();
 
   const {
     register,
     // setValue,
     handleSubmit,
     setValue,
+    getValues,
     // formState: { errors },
-  } = useForm<Partial<FormDataType>>();
+  } = useForm<Partial<EditBookFormDataType>>();
 
   const { data: bookData, isLoading } = useGetSingleBookQuery(
     editBookId as string
@@ -25,22 +41,79 @@ export default function EditBook() {
     ? bookData
     : { statusCode: "", data: {} };
 
+    
+    
   useEffect(() => {
     if (statusCode === 200) {
-      setValue("title", data?.title);
-      setValue("genre", data?.genre);
-      setValue("author", data?.author);
+        setValue("title", data?.title);
+        setValue("genre", data?.genre);
+        setValue("author", data?.author);
       setValue("publicationDate", data?.publicationDate);
       setValue("bookImage", data?.bookImage);
       setValue("description", data?.description);
       // setValue("createdBy", data?.createdBy)
-
+      
       setBookImg(data?.bookImage);
     }
-  }, [statusCode]);
+}, [statusCode]);
+
+useEffect(() => {
+    if (statusCode === 200) {
+  setInitialValues(getValues());
+    }
+}, [statusCode, getValues]);
 
   const handleUpdateBook = handleSubmit(async (data) => {
-    console.log(data);
+      console.log(initialValues, getValues(), data);
+    const { bookImage } = data;
+
+    console.log(initialValues);
+    const currentValues: InitialFormValues = getValues();
+    const modifiedData: InitialFormValues = {};
+
+    // console.log("sssss", initialValues, data );
+    for (const key in currentValues) {
+      if (initialValues[key] !== currentValues[key]) {
+        modifiedData[key] = currentValues[key];
+      }
+    }
+
+    if(Object.keys(modifiedData).length == 0){
+        return;
+    }
+
+    const formData = new FormData();
+    formData.append("image", (bookImage as string)[0]);
+
+    try {
+      if ("bookImage" in modifiedData) {
+        const result = await uploadImage(formData);
+        if ("data" in result) {
+          const imgbbResponse = result.data.data as ImageInfo; // Cast the data to ImgbbResponse type
+
+          modifiedData.bookImage = imgbbResponse.image?.url as string;
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    }
+
+
+    try {
+      const result = await editBook({
+        bookId: editBookId as string,
+        data: modifiedData,
+      });
+      if (result) {
+        if ("data" in result) {
+          const finalResults = result.data as CreateBookResponse;
+          SwalMessage("success", finalResults.message as string);
+        }
+      }
+    } catch (error) {
+      SwalMessage("error", "Book updated failed!");
+    }
+
   });
 
   return (

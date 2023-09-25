@@ -1,15 +1,6 @@
 import { Link } from "react-router-dom";
 
 export default function ErrorPage() {
-  //   const error = useRouteError();
-
-  //   const isErrorResponse = (error: unknown): error is ErrorResponse => {
-  //     return "statusText" in error || "message" in error;
-  //   };
-
-  //   const statusText = isErrorResponse(error) ? error.statusText : undefined;
-  //   const message = isErrorResponse(error) ? error.message : undefined;
-
   return (
     <main className="grid min-h-full place-items-center bg-white px-6 py-24 sm:py-32 lg:px-8">
       <div className="text-center">

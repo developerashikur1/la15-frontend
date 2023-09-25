@@ -20,7 +20,6 @@ export default function AllBooks() {
     }
   }, [isSuccess]);
 
-  console.log("got book data after search", data);
   return (
     <div className="py-16">
       <SearchAndFilter />

@@ -9,6 +9,7 @@ import EditBook from "../page/EditBook";
 import ErrorPage from "../page/error-page";
 import Home from "../page/Home";
 import Login from "../page/Login";
+import MyListPage from "../page/MyListPage";
 import Signup from "../page/Signup";
 
 const routes = createBrowserRouter([
@@ -27,17 +28,37 @@ const routes = createBrowserRouter([
       },
       {
         path: "book-details/:bookId",
-        element: <BookDetails />,
+        element: 
+        (
+        <PrivateOutlet>
+        <BookDetails />
+        </PrivateOutlet>)
+        ,
       },
       {
         path: "create-book",
-        element: <AddNewBook />,
+        element: 
+        (
+        <PrivateOutlet>
+        <AddNewBook />
+        </PrivateOutlet>)
+        ,
       },
       {
         path: "edit-book/:editBookId",
-        element: (
+        element: 
+        (
           <PrivateOutlet>
             <EditBook />
+          </PrivateOutlet>
+        ),
+      },
+      {
+        path: "my-list",
+        element: 
+        (
+          <PrivateOutlet>
+            <MyListPage />
           </PrivateOutlet>
         ),
       },
